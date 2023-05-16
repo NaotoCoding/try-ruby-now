@@ -1,0 +1,6 @@
+{
+  "application": "app.rb",
+  "ruby.wasm": "./node_modules/unloosen-ruby-loader/dist/ruby.wasm",
+  "content-script-entry": "./node_modules/unloosen-ruby-loader/dist/entry/module-content-script.esm.js",
+  "remote-require": false
+}
