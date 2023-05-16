@@ -144,13 +144,13 @@ class TextAreaInitializer
   end
 
   def reset_text_area
-    @document.getElementById("input_text_area").value = ''
-    @document.getElementById("output_text_area").value = ''
+    @input_text_area.value = ''
+    @output_text_area.value = ''
   end
 
   def set_placeholder
-    @document.getElementById("input_text_area").placeholder = INITIAL_INPUT_TEXT
-    @document.getElementById("output_text_area").placeholder = INITIAL_OUTPUT_TEXT
+    @input_text_area.placeholder = INITIAL_INPUT_TEXT
+    @output_text_area.placeholder = INITIAL_OUTPUT_TEXT
   end
 end
 
