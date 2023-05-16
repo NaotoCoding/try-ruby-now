@@ -175,16 +175,14 @@ content_script site: "https://docs.ruby-lang.org/" do
 
   # 画面描画時と削除ボタンクリック時にテキストエリアを初期化する
   TextAreaInitializer.new(document).set_placeholder
-  reset_button = document.getElementById("reset_button")
-  reset_button.addEventListener("click") do
+  document.getElementById("reset_button").addEventListener("click") do
     TextAreaInitializer.new(document).reset_text_area
   end
 
   # 実行ボタンクリック時にRubyスクリプトを実行して結果を出力する
-  run_button = document.getElementById("run_button")
-  input_text_area = document.getElementById("input_text_area")
-  output_text_area = document.getElementById("output_text_area")
-  run_button.addEventListener("click") do
-    output_text_area.value = RubyRunner.new(input_text_area.value).result_of_ruby_code
+  document.getElementById("run_button").addEventListener("click") do
+    document.getElementById("output_text_area").value = RubyRunner.new(
+      document.getElementById("input_text_area").value
+    ).result_of_ruby_code
   end
 end
