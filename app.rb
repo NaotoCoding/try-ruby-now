@@ -7,16 +7,15 @@ class TryFieldCreator
 
   def add_designed_try_field_to_dom
     add_html_element_to_dom
+    # try_field:拡張機能部分全体を囲むHTML要素(div)
     try_field = @document.getElementById("try_field")
-    run_button = @document.getElementById("run_button")
-    reset_button = @document.getElementById("reset_button")
     apply_design(
       try_field,
       @document.getElementById("input_text_area"),
       @document.getElementById("output_text_area"),
       @document.getElementById("button_container"),
-      run_button,
-      reset_button
+      @document.getElementById("run_button"),
+      @document.getElementById("reset_button")
     )
     try_field
   end
