@@ -1,10 +1,19 @@
 require "unloosen"
 
+class HTMLIDManager
+  TRY_FIELD_ID = 'try_field'.freeze
+  INPUT_TEXT_AREA_ID = 'input_text_area'.freeze
+  OUTPUT_TEXT_AREA_ID = 'output_text_area'.freeze
+  BUTTON_CONTAINER_ID = 'button_container'.freeze
+  RUN_BUTTON_ID = 'run_button'.freeze
+  RESET_BUTTON_ID = 'reset_button'.freeze
+end
+
 class TryFieldCreator
-  INPUT_TEXT_AREA_PLACEHOLDER = 'Rubyのコードを入力してください'
-  OUTPUT_TEXT_AREA_PLACEHOLDER = '実行値がここに表示されます'
-  RUN_BUTTON_TEXT = '実行'
-  RESET_BUTTON_TEXT = '削除'
+  INPUT_TEXT_AREA_PLACEHOLDER = 'Rubyのコードを入力してください'.freeze
+  OUTPUT_TEXT_AREA_PLACEHOLDER = '実行値がここに表示されます'.freeze
+  RUN_BUTTON_TEXT = '実行'.freeze
+  RESET_BUTTON_TEXT = '削除'.freeze
 
   def initialize(document)
     @document = document
@@ -13,14 +22,14 @@ class TryFieldCreator
   def add_designed_try_field_to_dom
     add_html_element_to_dom
     # try_field:拡張機能部分全体を囲むHTML要素(div)
-    try_field = @document.getElementById("try_field")
+    try_field = @document.getElementById(HTMLIDManager::TRY_FIELD_ID)
     apply_design(
       try_field,
-      @document.getElementById("input_text_area"),
-      @document.getElementById("output_text_area"),
-      @document.getElementById("button_container"),
-      @document.getElementById("run_button"),
-      @document.getElementById("reset_button")
+      @document.getElementById(HTMLIDManager::INPUT_TEXT_AREA_ID),
+      @document.getElementById(HTMLIDManager::OUTPUT_TEXT_AREA_ID),
+      @document.getElementById(HTMLIDManager::BUTTON_CONTAINER_ID),
+      @document.getElementById(HTMLIDManager::RUN_BUTTON_ID),
+      @document.getElementById(HTMLIDManager::RESET_BUTTON_ID)
     )
   end
 
@@ -29,15 +38,15 @@ class TryFieldCreator
     # 拡張機能で表示するHTML要素を全て作成する
     def add_html_element_to_dom
       try_field = @document.createElement("div")
-      try_field.id = "try_field"
+      try_field.id = HTMLIDManager::TRY_FIELD_ID
       button_container = @document.createElement("div")
-      button_container.id = "button_container"
+      button_container.id = HTMLIDManager::BUTTON_CONTAINER_ID
       # 入力用フォーム、出力用フォーム、実行ボタンを作成
-      try_field.appendChild(create_text_area("input_text_area", INPUT_TEXT_AREA_PLACEHOLDER))
+      try_field.appendChild(create_text_area(HTMLIDManager::INPUT_TEXT_AREA_ID, INPUT_TEXT_AREA_PLACEHOLDER))
       try_field.appendChild(button_container)
-      button_container.appendChild(create_button('run_button', RUN_BUTTON_TEXT))
-      button_container.appendChild(create_button('reset_button', RESET_BUTTON_TEXT))
-      try_field.appendChild(create_text_area("output_text_area", OUTPUT_TEXT_AREA_PLACEHOLDER))
+      button_container.appendChild(create_button(HTMLIDManager::RUN_BUTTON_ID, RUN_BUTTON_TEXT))
+      button_container.appendChild(create_button(HTMLIDManager::RESET_BUTTON_ID, RESET_BUTTON_TEXT))
+      try_field.appendChild(create_text_area(HTMLIDManager::OUTPUT_TEXT_AREA_ID, OUTPUT_TEXT_AREA_PLACEHOLDER))
       @document.body.appendChild(try_field)
     end
 
@@ -143,8 +152,8 @@ class TextAreaResetter
   end
 
   def reset_text_area
-    document.getElementById("input_text_area").value = ''
-    document.getElementById("output_text_area").value = ''
+    document.getElementById(HTMLIDManager::INPUT_TEXT_AREA_ID).value = ''
+    document.getElementById(HTMLIDManager::OUTPUT_TEXT_AREA_ID).value = ''
   end
 end
 
@@ -168,14 +177,14 @@ content_script site: "https://docs.ruby-lang.org/" do
   TryFieldCreator.new(document).add_designed_try_field_to_dom
 
   # 画面描画時と削除ボタンクリック時にテキストエリアを空にする
-  document.getElementById("reset_button").addEventListener("click") do
+  document.getElementById(HTMLIDManager::RESET_BUTTON_ID).addEventListener("click") do
     TextAreaResetter.new(document).reset_text_area
   end
 
   # 実行ボタンクリック時にRubyスクリプトを実行して結果を出力する
-  document.getElementById("run_button").addEventListener("click") do
-    document.getElementById("output_text_area").value = RubyRunner.new(
-      document.getElementById("input_text_area").value
+  document.getElementById(HTMLIDManager::RUN_BUTTON_ID).addEventListener("click") do
+    document.getElementById(HTMLIDManager::OUTPUT_TEXT_AREA_ID).value = RubyRunner.new(
+      document.getElementById(HTMLIDManager::INPUT_TEXT_AREA_ID).value
     ).result_of_ruby_code
   end
 end
