@@ -17,7 +17,6 @@ class TryFieldCreator
       @document.getElementById("run_button"),
       @document.getElementById("reset_button")
     )
-    try_field
   end
 
   private
