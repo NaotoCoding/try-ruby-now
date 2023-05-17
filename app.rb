@@ -37,14 +37,17 @@ class TryFieldCreator
     def add_html_element_to_dom
       try_field = @document.createElement("div")
       try_field.id = HTMLIDManager::TRY_FIELD_ID
+      # 入力用フォームを作成
+      try_field.appendChild(create_text_area(HTMLIDManager::INPUT_TEXT_AREA_ID, INPUT_TEXT_AREA_PLACEHOLDER))
+      # ボタン用div、実行ボタン、削除ボタンを作成
       button_container = @document.createElement("div")
       button_container.id = HTMLIDManager::BUTTON_CONTAINER_ID
-      # 入力用フォーム、出力用フォーム、実行ボタンを作成
-      try_field.appendChild(create_text_area(HTMLIDManager::INPUT_TEXT_AREA_ID, INPUT_TEXT_AREA_PLACEHOLDER))
       try_field.appendChild(button_container)
       button_container.appendChild(create_button(HTMLIDManager::RUN_BUTTON_ID, RUN_BUTTON_TEXT))
       button_container.appendChild(create_button(HTMLIDManager::RESET_BUTTON_ID, RESET_BUTTON_TEXT))
+      # 出力用フォームを作成
       try_field.appendChild(create_text_area(HTMLIDManager::OUTPUT_TEXT_AREA_ID, OUTPUT_TEXT_AREA_PLACEHOLDER))
+      
       @document.body.appendChild(try_field)
     end
 
