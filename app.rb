@@ -1,4 +1,4 @@
-require "unloosen"
+require 'unloosen'
 
 class HTMLIDManager
   TRY_FIELD_ID = 'try_field'.freeze
@@ -35,12 +35,12 @@ class TryFieldCreator
 
     # 拡張機能で表示するHTML要素を全て作成する
     def add_html_element_to_dom
-      try_field = @document.createElement("div")
+      try_field = @document.createElement('div')
       try_field.id = HTMLIDManager::TRY_FIELD_ID
       # 入力用フォームを作成
       try_field.appendChild(create_text_area(HTMLIDManager::INPUT_TEXT_AREA_ID, INPUT_TEXT_AREA_PLACEHOLDER))
       # ボタン用div、実行ボタン、削除ボタンを作成
-      button_container = @document.createElement("div")
+      button_container = @document.createElement('div')
       button_container.id = HTMLIDManager::BUTTON_CONTAINER_ID
       try_field.appendChild(button_container)
       button_container.appendChild(create_button(HTMLIDManager::RUN_BUTTON_ID, RUN_BUTTON_TEXT))
@@ -52,14 +52,14 @@ class TryFieldCreator
     end
 
     def create_text_area(html_id, placeholder)
-      text_area = @document.createElement("TEXTAREA")
+      text_area = @document.createElement('TEXTAREA')
       text_area.id = html_id
       text_area.placeholder = placeholder
       text_area
     end
 
     def create_button(html_id, text)
-      run_button = @document.createElement("button")
+      run_button = @document.createElement('button')
       run_button.id = html_id
       run_button.textContent = text
       run_button
@@ -165,19 +165,19 @@ class RubyRunner
 end
 
 # Main code
-content_script site: "https://docs.ruby-lang.org/" do
+content_script site: 'https://docs.ruby-lang.org/' do
   TryFieldCreator.new(document).add_designed_try_field_to_dom
   input_text_area = document.getElementById(HTMLIDManager::INPUT_TEXT_AREA_ID)
   output_text_area = document.getElementById(HTMLIDManager::OUTPUT_TEXT_AREA_ID)
 
   # 削除ボタンクリック時に入力、出力テキストエリアを空にする
-  document.getElementById(HTMLIDManager::RESET_BUTTON_ID).addEventListener("click") do
+  document.getElementById(HTMLIDManager::RESET_BUTTON_ID).addEventListener('click') do
     input_text_area.value = ''
     output_text_area.value = ''
   end
 
   # 実行ボタンクリック時にRubyスクリプトを実行して結果を出力する
-  document.getElementById(HTMLIDManager::RUN_BUTTON_ID).addEventListener("click") do
+  document.getElementById(HTMLIDManager::RUN_BUTTON_ID).addEventListener('click') do
     output_text_area.value = RubyRunner.new(
       input_text_area.value
     ).result_of_ruby_code
