@@ -21,10 +21,8 @@ class TryFieldCreator
 
   def add_designed_try_field_to_dom
     add_html_element_to_dom
-    # try_field:拡張機能部分全体を囲むHTML要素(div)
-    try_field = @document.getElementById(HTMLIDManager::TRY_FIELD_ID)
     apply_design(
-      try_field,
+      @document.getElementById(HTMLIDManager::TRY_FIELD_ID),
       @document.getElementById(HTMLIDManager::INPUT_TEXT_AREA_ID),
       @document.getElementById(HTMLIDManager::OUTPUT_TEXT_AREA_ID),
       @document.getElementById(HTMLIDManager::BUTTON_CONTAINER_ID),
