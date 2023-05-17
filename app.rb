@@ -108,7 +108,7 @@ class TryFieldCreator
 
     def apply_run_button_design(run_button)
       run_button_style = run_button.style
-      run_button_style.backgroundColor = '#CC342D'
+      run_button_style.backgroundColor = ruby_red
       run_button_style.border = 'none'
       run_button_style.color = 'White'
       run_button_style.fontSize = '1.2rem'
@@ -121,7 +121,7 @@ class TryFieldCreator
 
     def apply_reset_button_design(reset_button)
       reset_button_style = reset_button.style
-      reset_button_style.backgroundColor = '#CC342D'
+      reset_button_style.backgroundColor = ruby_red
       reset_button_style.border = 'none'
       reset_button_style.color = 'White'
       reset_button_style.fontSize = '1.2rem'
@@ -135,13 +135,17 @@ class TryFieldCreator
       button_style = button.style
       button.addEventListener('mouseover') do
         button_style.backgroundColor = 'White'
-        button_style.color = '#CC342D'
+        button_style.color = ruby_red
       end
 
       button.addEventListener('mouseout') do
-        button_style.backgroundColor = '#CC342D'
+        button_style.backgroundColor = ruby_red
         button_style.color = 'White'
       end
+    end
+
+    def ruby_red
+      '#CC342D'
     end
 end
 
