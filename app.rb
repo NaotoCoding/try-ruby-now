@@ -75,7 +75,6 @@ class TryFieldCreator
       apply_reset_button_design(reset_button)
       apply_hover_button_design(run_button)
       apply_hover_button_design(reset_button)
-      try_field
     end
 
     def apply_try_field_design(try_field)
