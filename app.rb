@@ -167,17 +167,19 @@ end
 # Main code
 content_script site: "https://docs.ruby-lang.org/" do
   TryFieldCreator.new(document).add_designed_try_field_to_dom
+  input_text_area = document.getElementById(HTMLIDManager::INPUT_TEXT_AREA_ID)
+  output_text_area = document.getElementById(HTMLIDManager::OUTPUT_TEXT_AREA_ID)
 
   # 削除ボタンクリック時に入力、出力テキストエリアを空にする
   document.getElementById(HTMLIDManager::RESET_BUTTON_ID).addEventListener("click") do
-    document.getElementById(HTMLIDManager::INPUT_TEXT_AREA_ID).value = ''
-    document.getElementById(HTMLIDManager::OUTPUT_TEXT_AREA_ID).value = ''
+    input_text_area.value = ''
+    output_text_area.value = ''
   end
 
   # 実行ボタンクリック時にRubyスクリプトを実行して結果を出力する
   document.getElementById(HTMLIDManager::RUN_BUTTON_ID).addEventListener("click") do
-    document.getElementById(HTMLIDManager::OUTPUT_TEXT_AREA_ID).value = RubyRunner.new(
-      document.getElementById(HTMLIDManager::INPUT_TEXT_AREA_ID).value
+    output_text_area.value = RubyRunner.new(
+      input_text_area.value
     ).result_of_ruby_code
   end
 end
