@@ -1,6 +1,11 @@
 require "unloosen"
 
 class TryFieldCreator
+  INPUT_TEXT_AREA_PLACEHOLDER = 'Rubyのコードを入力してください'
+  OUTPUT_TEXT_AREA_PLACEHOLDER = '実行値がここに表示されます'
+  RUN_BUTTON_TEXT = '実行'
+  RESET_BUTTON_TEXT = '削除'
+
   def initialize(document)
     @document = document
   end
@@ -28,17 +33,18 @@ class TryFieldCreator
       button_container = @document.createElement("div")
       button_container.id = "button_container"
       # 入力用フォーム、出力用フォーム、実行ボタンを作成
-      try_field.appendChild(create_text_area("input_text_area"))
+      try_field.appendChild(create_text_area("input_text_area", INPUT_TEXT_AREA_PLACEHOLDER))
       try_field.appendChild(button_container)
-      button_container.appendChild(create_button('run_button', '実行'))
-      button_container.appendChild(create_button('reset_button', '削除'))
-      try_field.appendChild(create_text_area("output_text_area"))
+      button_container.appendChild(create_button('run_button', RUN_BUTTON_TEXT))
+      button_container.appendChild(create_button('reset_button', RESET_BUTTON_TEXT))
+      try_field.appendChild(create_text_area("output_text_area", OUTPUT_TEXT_AREA_PLACEHOLDER))
       @document.body.appendChild(try_field)
     end
 
-    def create_text_area(html_id)
+    def create_text_area(html_id, placeholder)
       text_area = @document.createElement("TEXTAREA")
       text_area.id = html_id
+      text_area.placeholder = placeholder
       text_area
     end
 
@@ -131,24 +137,14 @@ class TryFieldCreator
 end
 
 # テキストエリアの初期化を管理
-class TextAreaInitializer
-  INITIAL_INPUT_TEXT = 'Rubyのコードを入力してください'
-  INITIAL_OUTPUT_TEXT = '実行値がここに表示されます'
-
+class TextAreaResetter
   def initialize(document)
     @document = document
-    @input_text_area = @document.getElementById("input_text_area")
-    @output_text_area = @document.getElementById("output_text_area")
   end
 
   def reset_text_area
-    @input_text_area.value = ''
-    @output_text_area.value = ''
-  end
-
-  def set_placeholder
-    @input_text_area.placeholder = INITIAL_INPUT_TEXT
-    @output_text_area.placeholder = INITIAL_OUTPUT_TEXT
+    document.getElementById("input_text_area").value = ''
+    document.getElementById("output_text_area").value = ''
   end
 end
 
@@ -171,10 +167,9 @@ end
 content_script site: "https://docs.ruby-lang.org/" do
   TryFieldCreator.new(document).add_designed_try_field_to_dom
 
-  # 画面描画時と削除ボタンクリック時にテキストエリアを初期化する
-  TextAreaInitializer.new(document).set_placeholder
+  # 画面描画時と削除ボタンクリック時にテキストエリアを空にする
   document.getElementById("reset_button").addEventListener("click") do
-    TextAreaInitializer.new(document).reset_text_area
+    TextAreaResetter.new(document).reset_text_area
   end
 
   # 実行ボタンクリック時にRubyスクリプトを実行して結果を出力する
