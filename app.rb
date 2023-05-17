@@ -18,8 +18,6 @@ class TryFieldCreator
       run_button,
       reset_button
     )
-    hover_button(run_button)
-    hover_button(reset_button)
     try_field
   end
 
@@ -61,6 +59,8 @@ class TryFieldCreator
       apply_button_container_design(button_container)
       apply_run_button_design(run_button)
       apply_reset_button_design(reset_button)
+      apply_hover_button_design(run_button)
+      apply_hover_button_design(reset_button)
       try_field
     end
 
@@ -118,7 +118,7 @@ class TryFieldCreator
       reset_button_style.borderRadius = '12px'
     end
 
-    def hover_button(button)
+    def apply_hover_button_design(button)
       button_style = button.style
       button.addEventListener('mouseover') do
         button_style.backgroundColor = 'White'
