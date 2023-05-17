@@ -149,18 +149,6 @@ class TryFieldCreator
     end
 end
 
-# テキストエリアの初期化を管理
-class TextAreaResetter
-  def initialize(document)
-    @document = document
-  end
-
-  def reset_text_area
-    document.getElementById(HTMLIDManager::INPUT_TEXT_AREA_ID).value = ''
-    document.getElementById(HTMLIDManager::OUTPUT_TEXT_AREA_ID).value = ''
-  end
-end
-
 # Rubyのコード実行を管理
 class RubyRunner
   def initialize(script)
@@ -180,9 +168,10 @@ end
 content_script site: "https://docs.ruby-lang.org/" do
   TryFieldCreator.new(document).add_designed_try_field_to_dom
 
-  # 画面描画時と削除ボタンクリック時にテキストエリアを空にする
+  # 削除ボタンクリック時に入力、出力テキストエリアを空にする
   document.getElementById(HTMLIDManager::RESET_BUTTON_ID).addEventListener("click") do
-    TextAreaResetter.new(document).reset_text_area
+    document.getElementById(HTMLIDManager::INPUT_TEXT_AREA_ID).value = ''
+    document.getElementById(HTMLIDManager::OUTPUT_TEXT_AREA_ID).value = ''
   end
 
   # 実行ボタンクリック時にRubyスクリプトを実行して結果を出力する
