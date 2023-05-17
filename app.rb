@@ -6,7 +6,7 @@ class TryFieldCreator
   end
 
   def add_designed_try_field_to_dom
-    prepare_element
+    add_html_element_to_dom
     try_field = @document.getElementById("try_field")
     run_button = @document.getElementById("run_button")
     reset_button = @document.getElementById("reset_button")
@@ -26,7 +26,7 @@ class TryFieldCreator
   private
 
     # 拡張機能で表示するHTML要素を全て作成する
-    def prepare_element
+    def add_html_element_to_dom
       try_field = @document.createElement("div")
       try_field.id = "try_field"
       button_container = @document.createElement("div")
