@@ -5,8 +5,9 @@ You can try Ruby script in Documentation for Ruby page.
 
 ------------
 
-## Caution
-**May 18, 2023, Try Ruby Now is under examination of google, so you can't install it from [google webstore](https://chrome.google.com/webstore/category/extensions).**
+## Installation
+You can install Try Ruby Now at [Chrome Web Store](https://chrome.google.com/webstore/detail/try-ruby-now/ehiigmnbjoimbgeolapmbiomoccacobo?hl=ja&authuser=0).
+
 
 ## How to use
 You can try Ruby script in [Documentation for Ruby page](https://docs.ruby-lang.org).
@@ -14,7 +15,6 @@ You can try Ruby script in [Documentation for Ruby page](https://docs.ruby-lang.
 1. When extension is working, a try field open in the bottom half of the page automatically.
 
 <img width="300" alt="スクリーンショット 2023-05-18 10 26 01" src="https://github.com/NaotoCoding/try-ruby-now/assets/65155272/fd332588-1735-4d5e-ac9d-a5e5792f9bfb">
-
 
 2. Write Ruby script in the text area on left side and click execute button(upper button). Return value of Ruby script will be displayed in the text area on right side.
 
